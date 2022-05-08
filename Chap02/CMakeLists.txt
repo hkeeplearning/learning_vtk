@@ -10,7 +10,12 @@ endif ()
 
 add_executable(2.1_RenderCylinder 2.1_RenderCylinder.cpp)
 target_link_libraries(2.1_RenderCylinder PRIVATE ${VTK_LIBRARIES})
+add_executable(2.2_RenderCylinder-Lights 2.2_RenderCylinder-Lights.cpp)
+target_link_libraries(2.2_RenderCylinder-Lights PRIVATE ${VTK_LIBRARIES})
 
 vtk_module_autoinit(
   TARGETS 2.1_RenderCylinder
+  MODULES ${VTK_LIBRARIES})
+vtk_module_autoinit(
+  TARGETS 2.2_RenderCylinder-Lights
   MODULES ${VTK_LIBRARIES})
