@@ -1,45 +1,40 @@
 #include <iostream>
 
-#include <vtkCamera.h>
-#include <vtkCylinderSource.h>
 #include <vtkInteractorStyleTrackballCamera.h>
-#include <vtkLight.h>
+#include <vtkJPEGReader.h>
+#include <vtkPlaneSource.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkRenderWindow.h>
 #include <vtkRenderWindowInteractor.h>
 #include <vtkRenderer.h>
 #include <vtkSmartPointer.h>
+#include <vtkTexture.h>
 
-int main()
+int main(int argc, char* argv[])
 {
-  std::cout << "2.2_RenderCylinder Lights" << std::endl;
-  auto cylinder = vtkSmartPointer<vtkCylinderSource>::New();
-  cylinder->SetHeight(3.0);
-  cylinder->SetRadius(1.0);
-  cylinder->SetResolution(10);
+  if (argc < 2)
+  {
+    std::cout << "Texture filename should be entered.";
+    exit(1);
+  }
+  std::cout << argv[1] << std::endl;
 
+  auto reader = vtkSmartPointer<vtkJPEGReader>::New();
+  reader->SetFileName(argv[1]);
+  auto texture = vtkSmartPointer<vtkTexture>::New();
+  texture->SetInputConnection(reader->GetOutputPort());
+
+  auto plane = vtkSmartPointer<vtkPlaneSource>::New();
   auto mapper = vtkSmartPointer<vtkPolyDataMapper>::New();
-  mapper->SetInputConnection(cylinder->GetOutputPort());
+  mapper->SetInputConnection(plane->GetOutputPort());
 
   auto actor = vtkSmartPointer<vtkActor>::New();
   actor->SetMapper(mapper);
+  actor->SetTexture(texture);
 
   auto renderer = vtkSmartPointer<vtkRenderer>::New();
   renderer->AddActor(actor);
   renderer->SetBackground(0.1, 0.2, 0.4);
-
-  // Ìí¼ÓµÆ¹â
-  auto light = vtkSmartPointer<vtkLight>::New();
-  light->SetColor(0, 1, 0);
-  light->SetPosition(0, 1, 0);
-  light->SetFocalPoint(renderer->GetActiveCamera()->GetFocalPoint());
-  renderer->AddLight(light);
-
-  auto light2 = vtkSmartPointer<vtkLight>::New();
-  light2->SetColor(0, 0, 1);
-  light2->SetPosition(0, -1, 0);
-  light2->SetFocalPoint(renderer->GetActiveCamera()->GetFocalPoint());
-  renderer->AddLight(light2);
 
   auto render_win = vtkSmartPointer<vtkRenderWindow>::New();
   render_win->AddRenderer(renderer);
