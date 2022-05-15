@@ -8,9 +8,10 @@ if (NOT VTK_FOUND)
   return ()
 endif ()
 
-add_executable(1.3_TestVTKInstall 1.3_TestVTKInstall.cpp)
-target_link_libraries(1.3_TestVTKInstall PRIVATE ${VTK_LIBRARIES})
-
-vtk_module_autoinit(
-  TARGETS 1.3_TestVTKInstall
-  MODULES ${VTK_LIBRARIES})
+foreach(TARGET_NAME 1.3_test_vtk_install)
+  set(SRCS ${TARGET_NAME}.cpp)
+  add_executable(${TARGET_NAME} ${SRCS})
+  vtk_module_autoinit(
+    TARGETS ${TARGET_NAME}
+    MODULES ${VTK_LIBRARIES})
+endforeach()
