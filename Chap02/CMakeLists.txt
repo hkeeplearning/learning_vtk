@@ -31,3 +31,27 @@ target_link_libraries(2.2_TextureExample PRIVATE ${VTK_LIBRARIES})
 vtk_module_autoinit(
   TARGETS 2.2_TextureExample
   MODULES ${VTK_LIBRARIES})
+
+add_executable(2.3_Viewport 2.3_Viewport.cpp)
+target_link_libraries(2.3_Viewport PRIVATE ${VTK_LIBRARIES})
+vtk_module_autoinit(
+  TARGETS 2.3_Viewport
+  MODULES ${VTK_LIBRARIES})
+
+add_executable(2.4_vtkPipelineDemo 2.4_vtkPipelineDemo.cpp)
+target_link_libraries(2.4_vtkPipelineDemo PRIVATE ${VTK_LIBRARIES})
+vtk_module_autoinit(
+  TARGETS 2.4_vtkPipelineDemo
+  MODULES ${VTK_LIBRARIES})
+
+add_executable(2.4_PipelineExecute 2.4_PipelineExecute.cpp)
+target_link_libraries(2.4_PipelineExecute PRIVATE ${VTK_LIBRARIES})
+vtk_module_autoinit(
+  TARGETS 2.4_PipelineExecute
+  MODULES ${VTK_LIBRARIES})
+
+add_executable(2.5_ReferenceCounting 2.5_ReferenceCounting.cpp)
+target_link_libraries(2.5_ReferenceCounting PRIVATE ${VTK_LIBRARIES})
+vtk_module_autoinit(
+  TARGETS 2.5_ReferenceCounting
+  MODULES ${VTK_LIBRARIES})
